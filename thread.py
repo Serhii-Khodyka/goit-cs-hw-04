@@ -5,6 +5,9 @@ import string
 from math import ceil
 
 def get_txt_files(directory): # знаходимо всі txt-файли в каталозі
+    if not os.path.exists(directory):
+        print(f"Каталог {directory} не існує.")
+        return []
     return [os.path.join(directory, f) for f in os.listdir(directory) if f.endswith('.txt')]
 
 def clean_text(text): # приводимо до нижнього регістру та видаляємо символи пунктуації
@@ -42,6 +45,9 @@ def threaded_keyword_search(files, keywords, num_threads):
 if __name__ == "__main__":
 
     files = get_txt_files("files") # каталог з файлами
+    if not files:
+        exit()
+        
     keywords = ["python", "модуль", "процесс"] # слова для пошуку
     num_threads = os.cpu_count()  # кількість потоків на рівні кількості ядер
 
